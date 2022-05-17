@@ -3,8 +3,9 @@ import { useState } from 'react';
 import { AppProps } from 'next/app';
 import { getCookie, setCookies } from 'cookies-next';
 import Head from 'next/head';
-import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
+import { MantineProvider, ColorScheme, ColorSchemeProvider, Grid } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
+import { Sidebar } from '../components/Sidebar/Sidebar';
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
@@ -27,7 +28,14 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
           <NotificationsProvider>
-            <Component {...pageProps} />
+            <Grid columns={12}>
+              <Grid.Col span={2}>
+                <Sidebar />
+              </Grid.Col>
+              <Grid.Col span={10}>
+                <Component {...pageProps} />
+              </Grid.Col>
+            </Grid>
           </NotificationsProvider>
         </MantineProvider>
       </ColorSchemeProvider>
